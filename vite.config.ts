@@ -1,11 +1,15 @@
 
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
-import netlify from "@netlify/vite-plugin-tanstack-start";
+import { defineConfig } from "vite";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import { cloudflare } from "@cloudflare/vite-plugin";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [netlify()],
-  nitro: false,
-  tanstackStart: {
-    server: { entry: "server" },
-  },
+  plugins: [
+    cloudflare({ viteEnvironment: { name: "ssr" } }),
+    tanstackStart(),
+    react(),
+    tailwindcss(),
+  ],
 });
